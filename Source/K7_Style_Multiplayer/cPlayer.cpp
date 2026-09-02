@@ -50,7 +50,7 @@ void AcPlayer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetime
 	DOREPLIFETIME(AcPlayer, server_look_axis);
 	DOREPLIFETIME(AcPlayer, timestamp);
 	DOREPLIFETIME(AcPlayer, loaded_ammo);
-	DOREPLIFETIME(AcPlayer, team_int);
+	DOREPLIFETIME(AcPlayer, team);
 	DOREPLIFETIME(AcPlayer, stunned);
 
 }

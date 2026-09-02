@@ -12,6 +12,15 @@
 #include "Components/PointLightComponent.h"
 #include "cPlayer.generated.h"
 
+UENUM(BlueprintType)
+enum class cEnum_team : uint8
+{
+	cop        UMETA(DisplayName = "Cop"),
+	robber     UMETA(DisplayName = "Robber"),
+	civilian     UMETA(DisplayName = "Civilian"),
+	spectator     UMETA(DisplayName = "Spectator")
+};
+
 UCLASS()
 class K7_STYLE_MULTIPLAYER_API AcPlayer : public ACharacter
 {
@@ -20,51 +29,51 @@ class K7_STYLE_MULTIPLAYER_API AcPlayer : public ACharacter
 public:
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Default")
-	TObjectPtr<UCameraComponent> ground_ref;
+	TObjectPtr<UCameraComponent> Cground_ref;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<USpringArmComponent> camera_boom;
+	TObjectPtr<USpringArmComponent> Ccamera_boom;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Default")
-	TObjectPtr<UCapsuleComponent> boom_capsule;
+	TObjectPtr<UCapsuleComponent> Cboom_capsule;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UPointLightComponent> flash_photography_light;
+	TObjectPtr<UPointLightComponent> Cflash_photography_light;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<USceneCaptureComponent2D> avatar_capture;
+	TObjectPtr<USceneCaptureComponent2D> Cavatar_capture;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UStaticMeshComponent> sweet_spot_particle;
+	TObjectPtr<UStaticMeshComponent> Csweet_spot_particle;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UStaticMeshComponent> first_person_mesh;
+	TObjectPtr<UStaticMeshComponent> Cfirst_person_mesh;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UArrowComponent> Arrow1;
+	TObjectPtr<UArrowComponent> CArrow1;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UBillboardComponent> billboard;
+	TObjectPtr<UBillboardComponent> Cbillboard;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<USkeletalMeshComponent> first_person_skeletal_mesh;
+	TObjectPtr<USkeletalMeshComponent> Cfirst_person_skeletal_mesh;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UCameraComponent> first_person_camera;
+	TObjectPtr<UCameraComponent> Cfirst_person_camera;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UCameraComponent> follow_camera;
+	TObjectPtr<UCameraComponent> Cfollow_camera;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Settings")
@@ -105,7 +114,7 @@ public:
 	/** Please add a variable description */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, attack_and_confirm) to GetLifetimeReplicatedProps");
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fattack_and_confirm);
-	UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category="Default", Replicated, meta=(MultiLine="true"))
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default", Replicated, meta=(MultiLine="true"))
 	Fattack_and_confirm attack_and_confirm;
 
 	/** Please add a variable description */
@@ -199,7 +208,7 @@ public:
 
 	/** Please add a variable description */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fdied);
-	UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
 	Fdied died;
 
 	/** Please add a variable description */
@@ -212,7 +221,7 @@ public:
 
 	/** Please add a variable description */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Frespawned);
-	UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
 	Frespawned respawned;
 
 	/** Please add a variable description */
@@ -245,9 +254,9 @@ public:
 	int32 loaded_ammo;
 
 	/** Please add a variable description */
-	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, team_int) to GetLifetimeReplicatedProps");
+	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, team) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Attributes (replicated)", Replicated)
-	int32 team_int;
+	cEnum_team team;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
@@ -268,17 +277,17 @@ public:
 
 	/** Please add a variable description */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fwent_first_person);
-	UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category="Default")
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default")
 	Fwent_first_person went_first_person;
 
 	/** Please add a variable description */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fdamaged);
-	UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category="Default")
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default")
 	Fdamaged damaged;
 
 	/** Please add a variable description */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fserver_interact_dispatch);
-	UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category="Default")
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default")
 	Fserver_interact_dispatch server_interact_dispatch;
 
 	/** Please add a variable description */
