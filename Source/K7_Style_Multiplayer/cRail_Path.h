@@ -41,15 +41,7 @@ public:
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default", meta=(MultiLine="true"))
-	double radius;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Default", meta=(MultiLine="true"))
-	TArray<AcRail_Path*> connected_paths;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Default", meta=(MultiLine="true"))
-	TObjectPtr<AcRail_Path> child_path;
+	double radius = 50.0;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default", meta=(MultiLine="true"))
@@ -74,4 +66,16 @@ public:
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Camera Settings")
 	bool custom_camera_focus_on_player;
+
+	/** Please add a variable description */
+	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Connections", meta=(MultiLine="true"))
+	TArray<AcRail_Path*> connected_paths;
+
+	/** Please add a variable description */
+	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Connections", meta=(MultiLine="true"))
+	TObjectPtr<AcRail_Path> child_path;
+
+	/** Please add a variable description */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Connections", meta=(MultiLine="true"))
+	bool rebuild_paths = false;
 };
