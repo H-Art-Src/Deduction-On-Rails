@@ -27,12 +27,42 @@ class K7_STYLE_MULTIPLAYER_API AcPlayer : public ACharacter
 
 public:
 	// ==================== Components ====================
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UCameraComponent> Cground_ref;
+	// ==================== Unused in CPP.
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UCameraComponent> Cground_ref;
+ //
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UPointLightComponent> Cflash_photography_light;
+ //
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<USceneCaptureComponent2D> Cavatar_capture;
+ //
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UStaticMeshComponent> Csweet_spot_particle;
+ //
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UStaticMeshComponent> Cfirst_person_mesh;
+ //
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UArrowComponent> CArrow1;
+ //
+	// /** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UBillboardComponent> Cbillboard;
 
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<USkeletalMeshComponent> Cfirst_person_skeletal_mesh;
+
+	// ==================== Used in CPP tick.
+	/** Please add a variable description */
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
 	TObjectPtr<USpringArmComponent> Ccamera_boom;
 
 	/** Please add a variable description */
@@ -41,40 +71,13 @@ public:
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UPointLightComponent> Cflash_photography_light;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<USceneCaptureComponent2D> Cavatar_capture;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UStaticMeshComponent> Csweet_spot_particle;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UStaticMeshComponent> Cfirst_person_mesh;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UArrowComponent> CArrow1;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UBillboardComponent> Cbillboard;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<USkeletalMeshComponent> Cfirst_person_skeletal_mesh;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<UCameraComponent> Cfirst_person_camera;
 
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
 	TObjectPtr<UCameraComponent> Cfollow_camera;
 
+	// ==================== Used in CPP other.
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Components", meta=(MultiLine="true"))
 	TObjectPtr<UParticleSystemComponent> sweet_particle;
@@ -334,4 +337,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	//enum_camera_follow_mode "custom camera" enums.
+	void UpdateCustomCamera(FVector NewVector, FRotator NewRotation);
+
+	//All other camera modes.
+	void UpdateDefaultCamera(FTransform NewTransform, float BlendA);
 };

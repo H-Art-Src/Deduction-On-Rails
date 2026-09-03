@@ -2,6 +2,7 @@
 
 #include "Net/UnrealNetwork.h"
 #include "Components/CapsuleComponent.h"
+#include "Camera/CameraActor.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "cRail_Path.h"
 #include "cPlayer.h"
@@ -20,6 +21,23 @@ void AcPlayer::BeginPlay()
 	Super::BeginPlay();
 	
 }
+
+//enum_camera_follow_mode "custom camera" enums.
+void AcPlayer::UpdateCustomCamera(FVector NewVector, FRotator NewRotation)
+{
+	Cfollow_camera->SetWorldRotation(NewRotation);
+	Cfollow_camera->SetWorldLocation(NewVector);
+	Ccamera_boom->SetActive(false, false);
+}
+
+//All other camera modes.
+void AcPlayer::UpdateDefaultCamera(FTransform NewTransform, float BlendA)
+{
+	NewTransform.Blend(NewTransform , Cfollow_camera->GetRelativeTransform() , BlendA);
+	Cfollow_camera->SetRelativeTransform(NewTransform);
+	Ccamera_boom->SetActive(true, true);
+}
+
 
 // Called every frame
 void AcPlayer::Tick(float DeltaTime)
@@ -51,19 +69,27 @@ void AcPlayer::Tick(float DeltaTime)
 				splinePTR->GetLocationAtDistanceAlongSpline(current_path_distance + (forwards ? 100.0 : -100.0), ESplineCoordinateSpace::World)
 			).Yaw;
 			SetActorRotation(FRotator(0.0,0.0, FMath::Lerp(GetActorRotation().Yaw , SplineLookAtYaw, 0.1)));
+
+			FVector NewVector;
 			switch(current_rail_path->camera_follow_mode)
 			{
 				//TODO all of these camera modifiers
 				case enum_camera_follow_mode::custom_camera:
-					break;
-				case enum_camera_follow_mode::shoulder:
-					break;
-				case enum_camera_follow_mode::ground:
-					break;
-				case enum_camera_follow_mode::shoulder_noturn://Mimics below in the BP.
-				case enum_camera_follow_mode::ground_noturn:
+					UpdateCustomCamera(current_rail_path->custom_camera->GetActorLocation(), current_rail_path->custom_camera->GetActorRotation());
 					break;
 				case enum_camera_follow_mode::custom_camera_focus_on_player:
+					NewVector = current_rail_path->custom_camera->GetActorLocation();
+					UpdateCustomCamera(NewVector, UKismetMathLibrary::FindLookAtRotation(NewVector,GetActorLocation()));
+					break;
+				case enum_camera_follow_mode::shoulder:
+					UpdateDefaultCamera(start_3p_transform, 0.1);
+					break;
+				case enum_camera_follow_mode::ground:
+					UpdateDefaultCamera(start_3p_transform_ground, 0.1);
+					break;
+				case enum_camera_follow_mode::shoulder_noturn:
+					break;
+				case enum_camera_follow_mode::ground_noturn:
 					break;
 			}
 		}
