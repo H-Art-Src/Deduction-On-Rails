@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "cRail_Path.h"
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/PointLightComponent.h"
@@ -37,7 +36,7 @@ public:
 	TObjectPtr<USpringArmComponent> Ccamera_boom;
 
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
 	TObjectPtr<UCapsuleComponent> Cboom_capsule;
 
 	/** Please add a variable description */
@@ -319,6 +318,10 @@ public:
 	// ==================== Methods ====================
 	// Sets default values for this character's properties
 	AcPlayer();
+
+	/** Please add a function description */
+	UFUNCTION(BlueprintPure)
+	double distance_after_velocity(double axis, double delta);
 
 protected:
 	// Called when the game starts or when spawned

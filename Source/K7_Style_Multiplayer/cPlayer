@@ -5,10 +5,6 @@ class ABasePlayer : public AcPlayer
 	GENERATED_BODY()
 public:
 	/** Please add a function description */
-	UFUNCTION(BlueprintPure)
-	double distance_after_velocity(double axis, double delta);
-
-	/** Please add a function description */
 	UFUNCTION(BlueprintCallable)
 	void random_sweet_spot();
 
