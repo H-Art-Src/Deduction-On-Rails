@@ -12,7 +12,11 @@ AcPlayer::AcPlayer()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	boom_capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("boom capsule"));
+	camera_boom = CreateDefaultSubobject<USpringArmComponent>(TEXT("camera boom"));
+	follow_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("follow camera"));
+	camera_boom->SetupAttachment(boom_capsule);
+	follow_camera->SetupAttachment(camera_boom);
 }
 
 // Called when the game starts or when spawned
@@ -25,17 +29,17 @@ void AcPlayer::BeginPlay()
 //enum_camera_follow_mode "custom camera" enums.
 void AcPlayer::UpdateCustomCamera(FVector NewVector, FRotator NewRotation)
 {
-	Cfollow_camera->SetWorldRotation(NewRotation);
-	Cfollow_camera->SetWorldLocation(NewVector);
-	Ccamera_boom->SetActive(false, false);
+	follow_camera->SetWorldLocation(NewVector);
+	follow_camera->SetWorldRotation(NewRotation);
+	camera_boom->SetActive(false, false);
 }
 
 //All other camera modes.
 void AcPlayer::UpdateDefaultCamera(FTransform NewTransform, float BlendA)
 {
-	NewTransform.Blend(NewTransform , Cfollow_camera->GetRelativeTransform() , BlendA);
-	Cfollow_camera->SetRelativeTransform(NewTransform);
-	Ccamera_boom->SetActive(true, true);
+	NewTransform.Blend(follow_camera->GetRelativeTransform() , NewTransform , BlendA);
+	follow_camera->SetRelativeTransform(NewTransform);
+	camera_boom->SetActive(true, true);
 }
 
 
@@ -48,8 +52,8 @@ void AcPlayer::Tick(float DeltaTime)
 	//Movement
 	FVector SplineLocation = splinePTR->GetLocationAtDistanceAlongSpline(current_path_distance, ESplineCoordinateSpace::World);
 	FHitResult GroundHit;
-	GetWorld()->LineTraceSingleByChannel(GroundHit, SplineLocation, FVector(SplineLocation.X, SplineLocation.Z, MIN_flt), ECC_Visibility);
-	SetActorLocation(FVector(SplineLocation.X, SplineLocation.Y, GroundHit.Location.Z - GetMesh()->GetComponentLocation().Z));
+	GetWorld()->LineTraceSingleByChannel(GroundHit, SplineLocation, FVector(SplineLocation.X, SplineLocation.Y, MIN_flt), ECC_Visibility);
+	SetActorLocation(FVector(SplineLocation.X, SplineLocation.Y, GroundHit.Location.Z - GetMesh()->GetRelativeLocation().Z));
 
 	//Not dead
 	if(!dead)
@@ -63,7 +67,7 @@ void AcPlayer::Tick(float DeltaTime)
 		}
 		else
 		{
-			boom_capsule_rotation = Cboom_capsule->GetComponentRotation();
+			boom_capsule_rotation = boom_capsule->GetComponentRotation();
 			float SplineLookAtYaw = UKismetMathLibrary::FindLookAtRotation(
 				GetActorLocation(),
 				splinePTR->GetLocationAtDistanceAlongSpline(current_path_distance + (forwards ? 100.0 : -100.0), ESplineCoordinateSpace::World)
@@ -73,7 +77,6 @@ void AcPlayer::Tick(float DeltaTime)
 			FVector NewVector;
 			switch(current_rail_path->camera_follow_mode)
 			{
-				//TODO all of these camera modifiers
 				case enum_camera_follow_mode::custom_camera:
 					UpdateCustomCamera(current_rail_path->custom_camera->GetActorLocation(), current_rail_path->custom_camera->GetActorRotation());
 					break;
@@ -88,8 +91,12 @@ void AcPlayer::Tick(float DeltaTime)
 					UpdateDefaultCamera(start_3p_transform_ground, 0.1);
 					break;
 				case enum_camera_follow_mode::shoulder_noturn:
+					//TODO
+					UpdateDefaultCamera(start_3p_transform, 0.1);
 					break;
 				case enum_camera_follow_mode::ground_noturn:
+					//TODO
+					UpdateDefaultCamera(start_3p_transform_ground, 0.1);
 					break;
 			}
 		}

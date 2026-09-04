@@ -20,6 +20,10 @@ enum class cEnum_team : uint8
 	spectator     UMETA(DisplayName = "Spectator")
 };
 
+class USpringArmComponent;
+class UCapsuleComponent;
+class UCameraComponent;
+
 UCLASS()
 class K7_STYLE_MULTIPLAYER_API AcPlayer : public ACharacter
 {
@@ -60,22 +64,22 @@ public:
 	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	// TObjectPtr<USkeletalMeshComponent> Cfirst_person_skeletal_mesh;
 
+	/** Please add a variable description */
+	// UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	// TObjectPtr<UCameraComponent> first_person_camera;
+
 	// ==================== Used in CPP tick.
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
-	TObjectPtr<USpringArmComponent> Ccamera_boom;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
-	TObjectPtr<UCapsuleComponent> Cboom_capsule;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	TObjectPtr<USpringArmComponent> camera_boom;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
-	TObjectPtr<UCameraComponent> Cfirst_person_camera;
+	TObjectPtr<UCapsuleComponent> boom_capsule;
 
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
-	TObjectPtr<UCameraComponent> Cfollow_camera;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	TObjectPtr<UCameraComponent> follow_camera;
 
 	// ==================== Used in CPP other.
 	/** Please add a variable description */
