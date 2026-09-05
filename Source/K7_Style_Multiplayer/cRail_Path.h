@@ -28,8 +28,8 @@ class K7_STYLE_MULTIPLAYER_API AcRail_Path : public ATriggerCapsule
 	GENERATED_BODY()
 public:
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
-	TObjectPtr<UTextRenderComponent> cTextRender;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
+	TObjectPtr<UTextRenderComponent> TextRender;
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
@@ -78,4 +78,6 @@ public:
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Connections", meta=(MultiLine="true"))
 	bool rebuild_paths = false;
+
+	AcRail_Path();
 };
