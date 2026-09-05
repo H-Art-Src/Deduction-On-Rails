@@ -101,10 +101,6 @@ public:
 
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Default")
-	FRotator boom_capsule_rotation;
-
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Default")
 	FTransform start_3p_transform;
 
 	/** Please add a variable description */
@@ -330,6 +326,8 @@ public:
 	UFUNCTION(BlueprintPure)
 	double distance_after_velocity(double axis, double delta);
 
+	UFUNCTION(BlueprintCallable)
+	void UpdateMovement();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -341,10 +339,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
 private:
 	//enum_camera_follow_mode "custom camera" enums.
 	void UpdateCustomCamera(FVector NewVector, FRotator NewRotation);
 
 	//All other camera modes.
 	void UpdateDefaultCamera(FTransform NewTransform, float BlendA);
+
+	// Default NoTurns.
+	void UpdateDefaultNoTurn(float PrevYaw, float Yaw);
 };
