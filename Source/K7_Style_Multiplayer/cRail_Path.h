@@ -32,7 +32,7 @@ public:
 	TObjectPtr<UTextRenderComponent> TextRender;
 
 	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category="Components")
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<USplineComponent> cSpline;
 
 	/** Please add a variable description */
