@@ -27,55 +27,55 @@ class K7_STYLE_MULTIPLAYER_API AcRail_Path : public ATriggerCapsule
 {
 	GENERATED_BODY()
 public:
-	/** Please add a variable description */
+	/** Displays path_name for devs. */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<UTextRenderComponent> TextRender;
 
-	/** Please add a variable description */
+	/** Spline to walk across. */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<USplineComponent> cSpline;
 
-	/** Please add a variable description */
+	/** In-game name. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default", meta=(MultiLine="true"))
 	FName path_name;
 
-	/** Please add a variable description */
+	/** Radius from center for junctions to connect. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default", meta=(MultiLine="true"))
 	double radius = 50.0;
 
-	/** Please add a variable description */
+	/** Shows junction selectors when exiting first person. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default", meta=(MultiLine="true"))
 	bool Bind_to_exit_first_person;
 
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
-	bool already_exists;
-
-	/** Please add a variable description */
+	/** Can't return to where you came from. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default", meta=(MultiLine="true"))
 	bool one_way;
 
-	/** Please add a variable description */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Camera Settings")
-	enum_camera_follow_mode camera_follow_mode;
+	/** Marks itself as already exists to prevent duplicate path selectors. */
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
+	bool already_exists;
 
-	/** Please add a variable description */
+	/** Sets camera mode. Will be overidden if custom_camera is set. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Camera Settings")
+	enum_camera_follow_mode camera_follow_mode = enum_camera_follow_mode.shoulder;
+
+	/** Reference to camera that the player will see when on this junction. */
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Camera Settings")
 	TObjectPtr<ACameraActor> custom_camera;
 
-	/** Please add a variable description */
+	/** Sets camera_follow_mode if custom_camera is set. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Camera Settings")
 	bool custom_camera_focus_on_player;
 
-	/** Please add a variable description */
+	/** Auto-detected conected conjunctions. */
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Connections", meta=(MultiLine="true"))
 	TArray<AcRail_Path*> connected_paths;
 
-	/** Please add a variable description */
+	/** Child path actor that overlaps its capsule with this. */
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Connections", meta=(MultiLine="true"))
 	TObjectPtr<AcRail_Path> child_path;
 
-	/** Please add a variable description */
+	/** Set to force launch the construction script. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Connections", meta=(MultiLine="true"))
 	bool rebuild_paths = false;
 

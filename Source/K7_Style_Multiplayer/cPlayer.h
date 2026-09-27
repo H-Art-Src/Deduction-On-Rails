@@ -69,33 +69,33 @@ public:
 	// TObjectPtr<UCameraComponent> first_person_camera;
 
 	// ==================== Used in CPP tick.
-	/** Please add a variable description */
+	/** Camera boom. */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<USpringArmComponent> camera_boom;
 
-	/** Please add a variable description */
+	/** Boom capsule.*/
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<UCapsuleComponent> boom_capsule;
 
-	/** Please add a variable description */
+	/** 3P camera. */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Components")
 	TObjectPtr<UCameraComponent> follow_camera;
 
 	// ==================== Used in CPP other.
-	/** Please add a variable description */
+	/** Critical hit particle effect. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Components", meta=(MultiLine="true"))
 	TObjectPtr<UParticleSystemComponent> sweet_particle;
 
 	// ==================== Default ====================
-	/** Please add a variable description */
+	/** Position on spline. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default")
 	double current_path_distance;
 
-	/** Please add a variable description */
+	/** 3P camera is set forwards. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Default")
 	bool third_person_camera_forwards;
 
-	/** Please add a variable description */
+	/** Player photograph. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Default")
 	TObjectPtr<UMaterialInstanceDynamic> Photo;
 
@@ -108,7 +108,7 @@ public:
 	FTransform start_3p_transform_ground;
 
 	// ==================== Settings ====================
-	/** Please add a variable description */
+	/** Turn rate controller */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Settings")
 	double BaseTurnRate;
 
@@ -116,47 +116,47 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Settings")
 	double BaseLookUpRate;
 
-	/** Please add a variable description */
+	/** Use mesh and hide the 3P model when aiming. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Settings", meta=(MultiLine="true"))
 	bool use_first_person_mesh_instead;
 
 	// ==================== Networked Status ====================
-	/** Please add a variable description */
+	/** Current junction. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, current_rail_path) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	TObjectPtr<AcRail_Path> current_rail_path;
 
-	/** Please add a variable description */
+	/** Is moving forwards on the track. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, forwards) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	bool forwards;
 
-	/** Please add a variable description */
+	/** Player pressed first person/battle mode. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, first_person_mode_pressed) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Networked Status", Replicated)
 	bool first_person_mode_pressed;
 
-	/** Please add a variable description */
+	/** Is in first person/battle mode. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, first_person_mode) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	bool first_person_mode;
 
-	/** Please add a variable description */
+	/** Aim rotation. Does not rotate the model beyond Z axis. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, aim_rotation) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	FRotator aim_rotation;
 
-	/** Please add a variable description */
+	/** Sweet spot bone name. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, sweet_spot) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	FName sweet_spot;
 
-	/** Please add a variable description */
+	/** Is dead. No controlling or status effects. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, dead) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	bool dead;
 
-	/** Please add a variable description */
+	/** Is firing a weapon for special. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, firing) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	bool firing;
@@ -166,123 +166,123 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	bool movement_lock;
 
-	/** Please add a variable description */
+	/** Player's control input replicated to all players. Walk mode.*/
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, current_move_axis) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true", ClampMin="-1", ClampMax="1"))
 	double current_move_axis;
 
-	/** Please add a variable description */
+	/** Player's control input replicated to all players. Battle mode.*/
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, server_look_axis) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	FVector2D server_look_axis;
 
-	/** Please add a variable description */
+	/** Prevents rubber banding. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, timestamp) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	double timestamp;
 
-	/** Please add a variable description */
+	/** Flashbangs. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, stunned) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Networked Status", Replicated, meta=(MultiLine="true"))
 	bool stunned;
 
 	// ==================== Attributes ====================
-	/** Please add a variable description */
+	/** Walk speed for junctions. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	double speed = 600.0;
 
-	/** Please add a variable description */
+	/** Max ammo. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes")
 	int32 max_ammo = 4;
 
-	/** Please add a variable description */
+	/** Health. Not using float. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	int32 start_hitpoints = 7;
 
-	/** Please add a variable description */
+	/** Delay until fire. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	double gun_delay = 0.4;
 
-	/** Please add a variable description */
+	/** Cooldown until you can fire again. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	double cooldown_aim = 0.4;
 
-	/** Please add a variable description */
+	/** Special move cooldown. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	double special_delay = 1.0;
 
-	/** Please add a variable description */
+	/** This class is spawned when doing a normal attack. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	TObjectPtr<UClass> projectile;
 
-	/** Please add a variable description */
+	/** This class is spawned when doing a special move. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	TObjectPtr<UClass> special;
 
-	/** Please add a variable description */
+	/** Size of sweet spot */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Attributes", meta=(MultiLine="true"))
 	double sweet_spot_radius;
 
-	/** Please add a variable description */
+	/** Score/money. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	int32 blood_count = 0;
 
-	/** Please add a variable description */
+	/** Respawn time. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	double respawn_time = 3.0;
 
-	/** Please add a variable description */
+	/** For recharging weapons. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes")
 	float ammo_recharge_rate = 2.0;
 
-	/** Please add a variable description */
+	/** Which type of class should this player respawn at. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Attributes", meta=(MultiLine="true"))
 	TObjectPtr<UClass> rail_spawn_class;
 
 	// ==================== Attributes (Replicated) ====================
-	/** Please add a variable description */
+	/** Health point. We're not using float or character stats. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, hit_points) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Attributes (replicated)", Replicated, meta=(MultiLine="true", ClampMin="0", ClampMax="51", UIMin="0", UIMax="51"))
 	int32 hit_points = 7;
 
-	/** Please add a variable description */
+	/** Weapon's current ammo. Was not made initially for multiple weapons per player.*/
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, loaded_ammo) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Attributes (replicated)", Replicated)
 	int32 loaded_ammo = 4;
 
-	/** Please add a variable description */
+	/** Player's team. Not apparent to all in deduction. */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, team) to GetLifetimeReplicatedProps");
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Attributes (replicated)", Replicated)
 	cEnum_team team;
 
 	// ==================== Delegates ====================
-	/** Please add a variable description */
+	/** Player attacks or confirms option. (Default mouse click) */
 	static_assert(true, "You will need to add DOREPLIFETIME(AcPlayer, attack_and_confirm) to GetLifetimeReplicatedProps");
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fattack_and_confirm);
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default", Replicated, meta=(MultiLine="true"))
 	Fattack_and_confirm attack_and_confirm;
 
-	/** Please add a variable description */
+	/** Player died. */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fdied);
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
 	Fdied died;
 
-	/** Please add a variable description */
+	/** Player respawned. */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Frespawned);
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default", meta=(MultiLine="true"))
 	Frespawned respawned;
 
-	/** Please add a variable description */
+	/** Switched to first person mode. */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fwent_first_person);
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default")
 	Fwent_first_person went_first_person;
 
-	/** Please add a variable description */
+	/** Hurt in some way. */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fdamaged);
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default")
 	Fdamaged damaged;
 
-	/** Please add a variable description */
+	/** Interacts with object.. */
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(Fserver_interact_dispatch);
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, EditDefaultsOnly, Category="Default")
 	Fserver_interact_dispatch server_interact_dispatch;
@@ -309,12 +309,12 @@ public:
 	TObjectPtr<USoundBase> respawn_sound;
 
 	// ==================== Server Only ====================
-	/** Please add a variable description */
+	/** Array of good sweetspots that can critical hit the player. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Server only", meta=(MultiLine="true"))
 	TArray<FName> valid_sweet_spots;
 
 	// ==================== Effects ====================
-	/** Please add a variable description */
+	/** Sweet spot particle effect. */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Components", meta=(MultiLine="true"))
 	TObjectPtr<UParticleSystem> sweet_spot_effect;
 
