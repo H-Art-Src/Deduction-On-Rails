@@ -57,7 +57,7 @@ public:
 
 	/** Sets camera mode. Will be overidden if custom_camera is set. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Camera Settings")
-	enum_camera_follow_mode camera_follow_mode = enum_camera_follow_mode.shoulder;
+	enum_camera_follow_mode camera_follow_mode = enum_camera_follow_mode::shoulder;
 
 	/** Reference to camera that the player will see when on this junction. */
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, Category="Camera Settings")
