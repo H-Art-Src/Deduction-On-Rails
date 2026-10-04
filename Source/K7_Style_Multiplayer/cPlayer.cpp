@@ -31,7 +31,7 @@ void AcPlayer::UpdateMovement()
 {
 	FVector SplineLocation = current_rail_path->cSpline->GetLocationAtDistanceAlongSpline(current_path_distance, ESplineCoordinateSpace::World);
 	FHitResult GroundHit;
-	GetWorld()->LineTraceSingleByChannel(GroundHit, SplineLocation, FVector(SplineLocation.X, SplineLocation.Y, MIN_flt), ECC_Visibility);
+	GetWorld()->LineTraceSingleByChannel(GroundHit, SplineLocation, FVector(SplineLocation.X, SplineLocation.Y, -FLT_MAX), ECC_Visibility);
 	SetActorLocation(FVector(SplineLocation.X, SplineLocation.Y, GroundHit.Location.Z - GetMesh()->GetRelativeLocation().Z));
 }
 
